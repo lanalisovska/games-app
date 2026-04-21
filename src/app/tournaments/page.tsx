@@ -5,10 +5,7 @@ import { TournamentSearch } from "@components/tournaments/TournamentSearch/Tourn
 import { TournamentGridSkeleton } from "@components/tournaments/TournamentSkeleton/TournamentSkeleton";
 import { GameFilter } from "@components/tournaments/GameFilter/GameFilter";
 import { pageStyles as s } from "./page.styles";
-
-interface IPageProps {
-  searchParams: Promise<{ q?: string; game?: string }>;
-}
+import type { IPageProps } from "./config/page.types";
 
 const TournamentsContent = async ({ query, game }: { query?: string; game?: string }) => {
   const tournaments = await getTournaments(query, game);

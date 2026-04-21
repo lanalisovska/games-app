@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import path from "path";
 import fs from "fs";
 import type { ITournament } from "@src/types";
@@ -42,9 +43,9 @@ const readLocalDb = (): ITournament[] => {
   return dbCache;
 };
 
-// ── Public API ───────────────────────────────────────────────────────────────
+// ── Public API (cache() deduplicates within each request) ────────────────────
 
-export const getTournaments = async (query?: string, game?: string): Promise<ITournament[]> => {
+export const getTournaments = cache(async (query?: string, game?: string): Promise<ITournament[]> => {
   if (API_BASE) return fetchTournaments(query, game);
 
   let results = readLocalDb();
@@ -56,12 +57,12 @@ export const getTournaments = async (query?: string, game?: string): Promise<ITo
     results = results.filter((t) => t.game === game);
   }
   return results;
-};
+});
 
-export const getTournament = async (id: string | number): Promise<ITournament> => {
+export const getTournament = cache(async (id: string | number): Promise<ITournament> => {
   if (API_BASE) return fetchTournament(id);
 
   const tournament = readLocalDb().find((t) => t.id === Number(id));
   if (!tournament) throw new Error(`Tournament ${id} not found`);
   return tournament;
-};
+});

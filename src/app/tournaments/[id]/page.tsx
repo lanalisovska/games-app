@@ -1,10 +1,7 @@
 import { notFound } from "next/navigation";
 import { getTournament } from "@lib/data";
 import { Client } from "./Client";
-
-interface IPageProps {
-  params: Promise<{ id: string }>;
-}
+import type { IPageProps } from "./config/page.types";
 
 export default async function TournamentPage({ params }: IPageProps) {
   const { id } = await params;
