@@ -3,36 +3,18 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon, Btn } from "@uikit/index";
 import { welcomeStyles as s } from "./welcomeModal.styles";
+import { WELCOME_CONTENT, LANG_LABELS, LANG_ORDER } from "./welcomeModal.data";
+import type { TLang } from "./welcomeModal.data";
 
 const SESSION_KEY = "welcome_seen";
 
-const FEATURES = [
-  {
-    bold: "Custom SVG icon system",
-    text: " — zero external icon libraries. Every icon is a single path string, composable and tree-shakable.",
-  },
-  {
-    bold: "Cyberpunk / Blade Runner theme",
-    text: " — animated city skyline, neon glows, CSS-only effects. No canvas.",
-  },
-  {
-    bold: "Next.js 15 App Router",
-    text: " — React Server Components, React.cache() request deduplication, streaming Suspense boundaries.",
-  },
-  {
-    bold: "Full-stack deployment",
-    text: " — Hono backend on Railway, frontend on Vercel. No local setup needed.",
-  },
-];
-
 export const WelcomeModal = () => {
   const [open, setOpen] = useState(false);
+  const [lang, setLang] = useState<TLang>("ru");
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    if (!sessionStorage.getItem(SESSION_KEY)) {
-      setOpen(true);
-    }
+    if (!sessionStorage.getItem(SESSION_KEY)) setOpen(true);
   }, []);
 
   useEffect(() => {
@@ -47,6 +29,8 @@ export const WelcomeModal = () => {
 
   if (!open) return null;
 
+  const c = WELCOME_CONTENT[lang];
+
   return (
     <dialog
       ref={dialogRef}
@@ -55,28 +39,30 @@ export const WelcomeModal = () => {
       aria-modal="true"
     >
       <div className={s.panel} role="document">
-        <button className={s.closeBtn} onClick={handleClose} aria-label="Close">
-          <Icon name="close" size="sm" color="current" aria-hidden />
-        </button>
-
-        <div>
-          <p className={s.eyebrow}>Test assignment</p>
-          <h2 className={s.title}>Hey there! 👾</h2>
+        <div className={s.panelHeader}>
+          <div>
+            <p className={s.eyebrow}>{c.eyebrow}</p>
+            <h2 className={s.title}>{c.title}</h2>
+          </div>
+          <div className={s.langSwitcher}>
+            {LANG_ORDER.map((l) => (
+              <button
+                key={l}
+                className={s.langBtn(lang === l)}
+                onClick={() => setLang(l)}
+              >
+                {LANG_LABELS[l]}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className={s.body}>
-          <p>
-            I&apos;ve taken care of the setup — both this frontend and a small Node.js backend are
-            already deployed, so you can skip straight to reviewing without any local configuration.
-          </p>
-          <p>
-            Fair warning: I ran a bit short on time, so you may spot a few places where interfaces
-            aren&apos;t extracted to dedicated files or styles aren&apos;t perfectly formatted.
-            I&apos;m aware — sorry about that! <span className="text-text-muted">(The tracker life is real 😅)</span>
-          </p>
-          <p>What I&apos;m happy with:</p>
+          <p>{c.intro}</p>
+          <p>{c.warning}</p>
+          <p>{c.featuresHeading}</p>
           <ul className={s.featureList} role="list">
-            {FEATURES.map(({ bold, text }) => (
+            {c.features.map(({ bold, text }) => (
               <li key={bold} className={s.featureItem}>
                 <span className={s.featureArrow} aria-hidden>→</span>
                 <span className={s.featureText}>
@@ -88,13 +74,14 @@ export const WelcomeModal = () => {
           </ul>
         </div>
 
-        <p className={s.disclaimer}>
-          Feel free to explore, improve, and push something new. I&apos;d love to see what you&apos;d add!
-        </p>
+        <p className={s.disclaimer}>{c.disclaimer}</p>
 
         <div className={s.footer}>
+          <button className={s.closeBtn} onClick={handleClose} aria-label="Close">
+            <Icon name="close" size="sm" color="current" aria-hidden />
+          </button>
           <Btn variant="primary" size="md" onClick={handleClose}>
-            Let&apos;s go
+            {c.cta}
           </Btn>
         </div>
       </div>

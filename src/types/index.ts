@@ -26,7 +26,8 @@ export type TIconName =
   | "chevronRight"
   | "check"
   | "loader"
-  | "share";
+  | "share"
+  | "github";
 
 export type TTournamentStatus = "open" | "full";
 

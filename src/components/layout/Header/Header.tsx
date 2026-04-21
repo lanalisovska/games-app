@@ -12,6 +12,15 @@ export const Header = () => (
       </Link>
 
       <nav className={s.nav}>
+        <a
+          href="https://github.com/lanalisovska/games-app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={s.githubLink}
+          aria-label="GitHub repository"
+        >
+          <Icon name="github" size="sm" color="current" aria-hidden />
+        </a>
         <ThemeToggle />
       </nav>
     </div>

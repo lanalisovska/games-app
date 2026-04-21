@@ -34,9 +34,9 @@ export const Icon = ({
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox={path.viewBox ?? "0 0 24 24"}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={path.strokeWidth ?? 1.5}
+      fill={path.strokeWidth === 0 ? "currentColor" : "none"}
+      stroke={path.strokeWidth === 0 ? "none" : "currentColor"}
+      strokeWidth={path.strokeWidth === 0 ? undefined : (path.strokeWidth ?? 1.5)}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden={ariaHidden}
