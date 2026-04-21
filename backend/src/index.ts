@@ -18,8 +18,9 @@ interface Tournament {
   organizer: string;
 }
 
+// db.json lives next to this service's root (backend/db.json)
 const db: { tournaments: Tournament[] } = JSON.parse(
-  readFileSync(join(process.cwd(), "../db.json"), "utf-8")
+  readFileSync(join(process.cwd(), "db.json"), "utf-8")
 );
 
 const app = new Hono();
