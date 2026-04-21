@@ -25,6 +25,6 @@ export const modalStyles = {
   metaIcon: "text-accent shrink-0",
   metaLabel: "text-xs text-text-muted font-cyber tracking-widest uppercase",
   metaValue: "text-sm font-semibold text-text-primary",
-  footer: "p-5 tablet:p-6 pt-0",
+  footer: "p-5 tablet:p-6",
   joinSuccess: "flex items-center justify-center gap-2 w-full h-11 border border-neon-green/30 bg-neon-green/10 text-sm font-semibold text-neon-green font-cyber tracking-wider",
 };

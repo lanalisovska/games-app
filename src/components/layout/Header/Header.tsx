@@ -11,6 +11,10 @@ export const Header = () => (
         <span className={s.logoText}>GameArena</span>
       </Link>
 
+      <nav className={s.navLinks}>
+        <Link href="/bonus" className={s.navLink}>Arcade</Link>
+      </nav>
+
       <nav className={s.nav}>
         <a
           href="https://github.com/lanalisovska/games-app"

@@ -74,8 +74,6 @@ export const WelcomeModal = () => {
           </ul>
         </div>
 
-        <p className={s.disclaimer}>{c.disclaimer}</p>
-
         <div className={s.footer}>
           <button className={s.closeBtn} onClick={handleClose} aria-label="Close">
             <Icon name="close" size="sm" color="current" aria-hidden />
