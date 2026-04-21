@@ -1,5 +1,5 @@
 import { PageLayout } from "@components/layout/PageLayout/PageLayout";
 
-export default function TournamentsLayout({ children }: { children: React.ReactNode }) {
+export default function AdultLayout({ children }: { children: React.ReactNode }) {
   return <PageLayout>{children}</PageLayout>;
 }
