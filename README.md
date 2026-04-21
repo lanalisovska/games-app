@@ -1,5 +1,7 @@
 # GameArena — Tournaments
 
+**Live:** https://games-app-lac.vercel.app
+
 A production-quality esports tournament browser built with **Next.js 15 App Router**, **TypeScript**, and **Tailwind CSS**.
 
 ## Quick Start
