@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Cyberpunk dark theme (default) ──────────────────────────────── */
+:root {
+  --color-base: #020409;
+  --color-surface: #040a16;
+  --color-card: #070e1f;
+  --color-card-hover: #0c1629;
+  --color-border: rgba(0, 229, 255, 0.12);
+  --color-text-primary: #dff4ff;
+  --color-text-secondary: #5ba5bc;
+  --color-text-muted: #2c5f72;
+  --color-accent: #00e5ff;
+  --color-accent-hover: #00c8e0;
+  --color-accent-muted: rgba(0, 229, 255, 0.1);
+  --color-accent-text: #000d10;
+  --color-neon-pink: #ff2d78;
+  --color-neon-green: #00ff9d;
+}
+
+/* ── Light theme ─────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --color-base: #f0f4f8;
+  --color-surface: #ffffff;
+  --color-card: #ffffff;
+  --color-card-hover: #f8fafc;
+  --color-border: rgba(0, 0, 0, 0.1);
+  --color-text-primary: #0a1628;
+  --color-text-secondary: #3d6680;
+  --color-text-muted: #7a9bb0;
+  --color-accent: #0088aa;
+  --color-accent-hover: #006688;
+  --color-accent-muted: rgba(0, 136, 170, 0.1);
+  --color-accent-text: #ffffff;
+  --color-neon-pink: #cc1555;
+  --color-neon-green: #006644;
+}
+
+/* ── Base ────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+body {
+  background-color: var(--color-base);
+  color: var(--color-text-primary);
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+/* Scan-line CRT overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(0, 0, 0, 0.04) 1px,
+    rgba(0, 0, 0, 0.04) 2px
+  );
+}
+
+/* Vignette */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+[data-theme="light"] body::after,
+[data-theme="light"] body::before {
+  display: none;
+}
+
+/* Smooth theme transitions */
+*:not([class*="animate-"]):not([class*="skeleton"]) {
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.15s ease;
+}
+
+/* ── Dialog / Modal ──────────────────────────────────────────────── */
+dialog {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  max-width: 100vw;
+  max-height: 100dvh;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-muted);
+}
+
+/* ── Skeleton shimmer ────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-card) 25%,
+    var(--color-card-hover) 50%,
+    var(--color-card) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+/* ── Neon glow utility ───────────────────────────────────────────── */
+.neon-text {
+  text-shadow: 0 0 8px currentColor, 0 0 20px currentColor;
+}
