@@ -47,7 +47,7 @@ NEXT_PUBLIC_API_BASE_URL=https://my-json-server.typicode.com/YOUR_GITHUB_USERNAM
 - **Intercepting routes** (`@modal/(.)`) render the modal as an overlay when navigating from the list; refreshing or direct-linking renders the full page version — same modal component, different close behavior
 - **`loading.tsx`** acts as the skeleton during navigation transitions
 
-### Component architecture (follows Shield-Webapp conventions)
+### Component architecture
 
 - `<Icon name="search" size="sm" color="accent" />` — all icons via a single typed component, no external icon library
 - `<Btn variant="primary" size="lg" icon="arrowRight" />` — single button primitive with variants and icon slot
