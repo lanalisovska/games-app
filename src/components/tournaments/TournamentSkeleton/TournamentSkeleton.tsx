@@ -4,8 +4,7 @@ const CardSkeleton = () => (
   <div className={s.card}>
     <div className={s.image} />
     <div className={s.body}>
-      <div className={s.titleLine1} />
-      <div className={s.titleLine2} />
+      <div className={s.title} />
       <div className={s.metaRow}>
         <div className={s.metaChip1} />
         <div className={s.metaChip2} />

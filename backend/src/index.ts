@@ -1,7 +1,7 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 
 interface Tournament {
@@ -18,10 +18,14 @@ interface Tournament {
   organizer: string;
 }
 
-// db.json lives next to this service's root (backend/db.json)
-const db: { tournaments: Tournament[] } = JSON.parse(
-  readFileSync(join(process.cwd(), "db.json"), "utf-8")
-);
+const getDbPath = () => {
+  const rootDbPath = join(process.cwd(), "..", "db.json");
+  if (existsSync(rootDbPath)) return rootDbPath;
+  return join(process.cwd(), "db.json");
+};
+
+const readDb = (): { tournaments: Tournament[] } =>
+  JSON.parse(readFileSync(getDbPath(), "utf-8"));
 
 const app = new Hono();
 
@@ -31,7 +35,7 @@ app.get("/tournaments", (c) => {
   const q = (c.req.query("title_like") ?? c.req.query("q") ?? "").toLowerCase().trim();
   const game = c.req.query("game") ?? "";
 
-  let results = db.tournaments;
+  let results = readDb().tournaments;
   if (q) results = results.filter((t) => t.title.toLowerCase().includes(q));
   if (game) results = results.filter((t) => t.game === game);
 
@@ -39,13 +43,13 @@ app.get("/tournaments", (c) => {
 });
 
 app.get("/tournaments/:id", (c) => {
-  const tournament = db.tournaments.find((t) => t.id === Number(c.req.param("id")));
+  const tournament = readDb().tournaments.find((t) => t.id === Number(c.req.param("id")));
   if (!tournament) return c.json({ error: "Not found" }, 404);
   return c.json(tournament);
 });
 
 app.post("/tournaments/:id/join", async (c) => {
-  const exists = db.tournaments.some((t) => t.id === Number(c.req.param("id")));
+  const exists = readDb().tournaments.some((t) => t.id === Number(c.req.param("id")));
   if (!exists) return c.json({ error: "Not found" }, 404);
   return c.json({ success: true, tournamentId: Number(c.req.param("id")) });
 });

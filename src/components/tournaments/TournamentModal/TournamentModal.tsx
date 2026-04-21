@@ -11,6 +11,7 @@ import type { ITournamentModalProps, TJoinState } from "./config/tournamentModal
 export const TournamentModal = ({ tournament, onClose }: ITournamentModalProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [joinState, setJoinState] = useState<TJoinState>("idle");
+  const [copied, setCopied] = useState(false);
 
   const { title, image, description, game, participants, maxParticipants, prize, startDate, status } =
     tournament;
@@ -47,6 +48,12 @@ export const TournamentModal = ({ tournament, onClose }: ITournamentModalProps) 
     }
   };
 
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   const joinLabel =
     status === "full"
       ? "Tournament Full"
@@ -63,9 +70,14 @@ export const TournamentModal = ({ tournament, onClose }: ITournamentModalProps) 
       aria-modal="true"
     >
       <div className={s.panel} role="document">
-        <button className={s.closeBtn} onClick={onClose} aria-label="Close modal">
-          <Icon name="close" size="sm" color="current" aria-hidden />
-        </button>
+        <div className={s.topActions}>
+          <button className={s.actionBtn} onClick={handleCopy} aria-label="Copy link">
+            <Icon name={copied ? "check" : "share"} size="sm" color="current" aria-hidden />
+          </button>
+          <button className={s.actionBtn} onClick={onClose} aria-label="Close modal">
+            <Icon name="close" size="sm" color="current" aria-hidden />
+          </button>
+        </div>
 
         <div className={s.imageWrap}>
           <Image

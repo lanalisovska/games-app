@@ -25,7 +25,7 @@ export default async function TournamentsPage({ searchParams }: IPageProps) {
         <p className={s.subtitle}>Find and join competitive esports tournaments</p>
       </div>
 
-      <Suspense fallback={null} key={q ?? ""}>
+      <Suspense fallback={null}>
         <TournamentSearch />
       </Suspense>
 

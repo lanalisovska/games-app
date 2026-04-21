@@ -3,6 +3,8 @@ import { cn } from "@lib/cn";
 export const modalStyles = {
   dialog: "fixed inset-0 flex items-end tablet:items-center justify-center p-0 tablet:p-4",
   panel: "relative w-full tablet:max-w-[580px] bg-surface border border-accent/25 shadow-neon-strong overflow-hidden animate-slideUp tablet:animate-fadeIn max-h-[92dvh] flex flex-col",
+  topActions: "absolute top-4 right-4 z-10 flex gap-2",
+  actionBtn: "w-8 h-8 flex items-center justify-center border border-border bg-card/80 backdrop-blur-sm text-text-secondary hover:text-accent hover:border-accent/50 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
   closeBtn: "absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center border border-border bg-card/80 backdrop-blur-sm text-text-secondary hover:text-accent hover:border-accent/50 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
   imageWrap: "relative w-full aspect-video shrink-0 bg-base overflow-hidden",
   image: "object-cover brightness-75",

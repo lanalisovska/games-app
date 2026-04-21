@@ -1,4 +1,4 @@
 export interface ITournamentSearchHook {
-  defaultValue: string;
+  value: string;
   handleSearch: (value: string) => void;
 }
